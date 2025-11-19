@@ -1,13 +1,12 @@
 from flask import Flask, request, jsonify
-from scraper import get_rank  # ← This loads your scraper.py
+from scraper import get_rank
 import os
 
 app = Flask(__name__)
 
-# ←←← YOUR SERPAPI KEY HERE ←←←
-SERPAPI_KEY = "077c0d0b55199e6970ab03d6c178784196797088bed46bb6d9de848c0c2405d7"
+# ←←←←← PUT YOUR REAL SERPAPI KEY HERE ←←←←←
+SERPAPI_KEY = "YOUR_REAL_KEY_HERE"
 
-# Pass key to scraper
 def get_rank_with_key(keyword):
     return get_rank(keyword, SERPAPI_KEY)
 
@@ -24,5 +23,5 @@ def track():
 def home():
     return "RankLabel API — POST to /track with {'keyword': 'your keyword'}"
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Vercel serverless export (required for routes)
+app = app
