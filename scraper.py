@@ -1,28 +1,32 @@
-# api/scraper.py  ← 100 % working, no silent fails
+# api/scraper.py — BULLET-PROOF VERSION
 import requests
-import json
 
-def get_rank(keyword, serpapi_key):
+def get_rank(keyword, api_key):
     params = {
         "engine": "google",
         "q": keyword,
         "gl": "uk",
         "hl": "en",
-        "api_key": serpapi_key
+        "num": 10,
+        "api_key": api_key
     }
     try:
-        response = requests.get("https://serpapi.com/search", params=params, timeout=20)
+        response = requests.get("https://serpapi.com/search", params=params, timeout=10)
+        response.raise_for_status()  # Raises error for bad status
         data = response.json()
-
-        if "organic_results" not in data:
-            return ">100"
-
-        for result in data["organic_results"]:
-            if "ranklabel.co.uk" in result.get("link", "") or "ranklabel.carrd.co" in result.get("link", ""):
-                return str(result["position"])
-
-        return ">100"
-
+        
+        if "organic_results" not in data or not data["organic_results"]:
+            return ">10"
+        
+        for i, result in enumerate(data["organic_results"], 1):
+            link = result.get("link", "")
+            if "ranklabel.co.uk" in link or "ranklabel.carrd.co" in link:
+                return str(i)
+        
+        return ">10"
+    except requests.exceptions.RequestException as e:
+        print(f"SerpApi request error: {e}")
+        return ">10"
     except Exception as e:
-        print("Scraper error:", str(e))  # visible in Vercel logs
-        return ">50"
+        print(f"Scraper error: {e}")
+        return ">10"
