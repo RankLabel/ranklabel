@@ -1,12 +1,19 @@
 {
-  "rewrites": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/track"
+      "src": "api/*.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/track.py"
     },
     {
-      "source": "/(.*)",
-      "destination": "/api/track"
+      "src": "/(.*)",
+      "dest": "/api/track.py"
     }
   ]
 }

@@ -23,5 +23,8 @@ def track():
 def home():
     return "RankLabel API — POST to /track with {'keyword': 'your keyword'}"
 
+if __name__ == "__main__":
+    app.run()
+    
 # Vercel serverless export (required for routes)
 app = app
