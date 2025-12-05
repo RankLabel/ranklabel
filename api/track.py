@@ -7,7 +7,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 # ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
-SERPAPI_KEY = "YOUR_REAL_SERPAPI_KEY_HERE"   # ← PUT YOUR KEY HERE
+SERPAPI_KEY = "077c0d0b55199e6970ab03d6c178784196797088bed46bb6d9de848c0c2405d7"   # ← PUT YOUR KEY HERE
 # ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←
 
 try:
